@@ -1,0 +1,78 @@
+{
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/",
+      "description": "Get all todos",
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": 1,
+            "title": "Sample Todo",
+            "completed": false
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/",
+      "description": "Create a new todo",
+      "request": {
+        "body": {
+          "title": "string",
+          "completed": "boolean (optional)"
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "id": 2,
+          "title": "New Todo",
+          "completed": false
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/<int:id>",
+      "description": "Update an existing todo",
+      "request": {
+        "body": {
+          "title": "string (optional)",
+          "completed": "boolean (optional)"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 1,
+          "title": "Updated Todo",
+          "completed": true
+        }
+      },
+      "errors": [
+        {
+          "status": 404,
+          "message": "Todo is not found"
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/<int:id>",
+      "description": "Delete a todo by ID",
+      "response": {
+        "status": 204,
+        "body": null
+      }
+    }
+  ],
+  "middleware": [
+    {
+      "name": "authenticate_token",
+      "description": "Middleware that authenticates the token before processing requests"
+    }
+  ]
+}
